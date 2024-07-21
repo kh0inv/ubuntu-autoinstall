@@ -17,27 +17,77 @@ autoinstall:
 
   storage:
     config:
+      # setup disk, and create partition table
       - id: disk-sda
         type: disk
         ptable: gpt
         path: /dev/sda
         wipe: superblock-recursive
 
+      # create partitions
       - id: sda-sda1
         type: partition
         size: 4GB
         device: sda
         flag: swap
+        name: swap-partition
 
       - id: sda-sda2
         type: partition
         size: 10GB
         device: sda
+        name: root-partition
 
-      - id: sda-sda2
+      - id: sda-sda3
         type: partition
         size: 10GB
         device: sda
+        name: home-partition
 
+      - id: sda-sda4
+        type: partition
+        size: -1
+        device: sda
+        name: windows-partition
+
+      # create filesystems
+      - id: sda-sda1-fs
+        type: format
+        volume: sda-sda1
+        fstype: swap
+        label: swap
+
+      - id: sda-sda2-fs
+        type: format
+        volume: sda-sda2
+        fstype: ext4
+        label: root
+
+      - id: sda-sda3-fs
+        type: format
+        volume: sda-sda3
+        fstype: ext4
+        label: home
+
+      - id: sda-sda4-fs
+        type: format
+        volume: sda-sda4
+        fstype: vfat
+
+      # mount filesystems
+      - id: sda-sda2-fs-mount
+        type: mount
+        device: sda-sda2-fs
+        path: /
+
+      - id: sda-sda3-fs-mount
+        type: mount
+        device: sda-sda3-fs
+        path: /home
+
+      - id: sda-sda4-fs-mount
+        type: mount
+        device: sda-sda4-fs
+        path: /windows
 
   shutdown: reboot
