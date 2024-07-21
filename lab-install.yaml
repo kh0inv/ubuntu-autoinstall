@@ -18,7 +18,7 @@ autoinstall:
   storage:
     config:
       # setup disk, and create partition table
-      - id: disk-sda
+      - id: sda
         type: disk
         ptable: gpt
         path: /dev/sda
