@@ -23,14 +23,15 @@ autoinstall:
         ptable: gpt
         path: /dev/sda
         wipe: superblock-recursive
+        grub_device: true
 
       # create partitions
       - id: sda-sda1
         type: partition
         size: 512MB
         device: sda
-        name: boot-partition
         flag: boot
+        name: boot-partition
 
       - id: sda-sda2
         type: partition
