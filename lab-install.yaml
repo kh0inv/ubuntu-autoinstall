@@ -1,0 +1,43 @@
+autoinstall:
+  version: 1
+
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+  timezone: geoip
+
+  identity:
+    username: dnd
+    hostname: labvm
+    password: '$6$6Etv3MuD6SFz9AMz$Kf3bDBYLcFjey.wZ5baOaCXCQ6yGXI7pBrQsovksgmdq..CwTwNdejWnyhN4UBcfO30wZoywVfUfPKW/nJsXF1'
+
+  packages:
+    - git
+    - python3-pip
+
+  storage:
+    config:
+      - id: disk-sda
+        type: disk
+        ptable: gpt
+        path: /dev/sda
+        wipe: superblock-recursive
+
+      - id: sda-sda1
+        type: partition
+        size: 4GB
+        device: sda
+        flag: swap
+
+      - id: sda-sda2
+        type: partition
+        size: 10GB
+        device: sda
+
+      - id: sda-sda2
+        type: partition
+        size: 10GB
+        device: sda
+
+
+  shutdown: reboot
